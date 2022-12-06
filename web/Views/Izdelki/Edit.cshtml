@@ -1,0 +1,46 @@
+@model web.Models.Izdelek
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Izdelek</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IzdelekID" />
+            <div class="form-group">
+                <label asp-for="IzdelekIme" class="control-label"></label>
+                <input asp-for="IzdelekIme" class="form-control" />
+                <span asp-validation-for="IzdelekIme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IzdelekVrsta" class="control-label"></label>
+                <input asp-for="IzdelekVrsta" class="form-control" />
+                <span asp-validation-for="IzdelekVrsta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IzdelekCena" class="control-label"></label>
+                <input asp-for="IzdelekCena" class="form-control" />
+                <span asp-validation-for="IzdelekCena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RokNakupa" class="control-label"></label>
+                <input asp-for="RokNakupa" class="form-control" />
+                <span asp-validation-for="RokNakupa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
