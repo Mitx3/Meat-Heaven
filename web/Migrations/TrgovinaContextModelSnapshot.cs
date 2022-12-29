@@ -34,14 +34,12 @@ namespace web.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("IzdelekIme")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IzdelekVrsta")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("KmetijaID")
+                    b.Property<int?>("KmetijaID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("RokNakupa")
@@ -63,11 +61,9 @@ namespace web.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Lastnik")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lokacija")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -79,9 +75,7 @@ namespace web.Migrations
                 {
                     b.HasOne("web.Models.Kmetija", "Kmetija")
                         .WithMany("Izdelki")
-                        .HasForeignKey("KmetijaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("KmetijaID");
 
                     b.Navigation("Kmetija");
                 });

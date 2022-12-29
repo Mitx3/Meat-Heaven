@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace web.Migrations
 {
-    public partial class Prva : Migration
+    public partial class Test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,8 +15,8 @@ namespace web.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Lastnik = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Lokacija = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Lastnik = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Lokacija = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,11 +29,11 @@ namespace web.Migrations
                 {
                     IzdelekID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IzdelekIme = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IzdelekVrsta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IzdelekIme = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IzdelekVrsta = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IzdelekCena = table.Column<double>(type: "float", nullable: false),
                     RokNakupa = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    KmetijaID = table.Column<int>(type: "int", nullable: false)
+                    KmetijaID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,8 +42,7 @@ namespace web.Migrations
                         name: "FK_Izdelek_Kmetija_KmetijaID",
                         column: x => x.KmetijaID,
                         principalTable: "Kmetija",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateIndex(
