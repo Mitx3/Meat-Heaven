@@ -5,14 +5,20 @@ using web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("TrgovinaContext");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//builder.Services.AddDbContext<TrgovinaContext>(options =>
+//           options.UseSqlServer(builder.Configuration.GetConnectionString("TrgovinaContext")));
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<TrgovinaContext>();
+
 builder.Services.AddDbContext<TrgovinaContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("TrgovinaContext")));
-
-
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
@@ -28,8 +34,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
+
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

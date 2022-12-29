@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace web.Controllers
 {
@@ -14,9 +16,12 @@ namespace web.Controllers
     {
         private readonly TrgovinaContext _context;
 
-        public KmetijeController(TrgovinaContext context)
+        private readonly UserManager<ApplicationUser> _usermanager;
+
+        public KmetijeController(TrgovinaContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _usermanager = userManager;
         }
 
         // GET: Kmetije
@@ -28,6 +33,7 @@ namespace web.Controllers
         }
 
         // GET: Kmetije/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Kmetije == null)
@@ -46,7 +52,7 @@ namespace web.Controllers
         }
 
         // GET: Kmetije/Create
-        
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -58,10 +64,17 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("ID,Lastnik,Lokacija")] Kmetija kmetija)
         {
+            var currentUser = await _usermanager.GetUserAsync(User);
+
             if (ModelState.IsValid)
             {
+                kmetija.DateCreated = DateTime.Now;
+                kmetija.DateEdited = DateTime.Now;
+                kmetija.Owner = currentUser;
+                
                 _context.Add(kmetija);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -70,6 +83,7 @@ namespace web.Controllers
         }
 
         // GET: Kmetije/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Kmetije == null)
@@ -90,6 +104,7 @@ namespace web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Lastnik,Lokacija")] Kmetija kmetija)
         {
             if (id != kmetija.ID)
@@ -121,6 +136,7 @@ namespace web.Controllers
         }
 
         // GET: Kmetije/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Kmetije == null)
@@ -141,6 +157,7 @@ namespace web.Controllers
         // POST: Kmetije/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Kmetije == null)

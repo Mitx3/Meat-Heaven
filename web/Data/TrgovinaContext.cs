@@ -1,9 +1,10 @@
 using web.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace web.Data
 {
-    public class TrgovinaContext : DbContext
+    public class TrgovinaContext : IdentityDbContext<ApplicationUser>
     {
         public TrgovinaContext(DbContextOptions<TrgovinaContext> options) : base(options)
         {
@@ -14,6 +15,8 @@ namespace web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Izdelek>().ToTable("Izdelek");
             modelBuilder.Entity<Kmetija>().ToTable("Kmetija");
         }
