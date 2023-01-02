@@ -12,8 +12,8 @@ using web.Data;
 namespace web.Migrations
 {
     [DbContext(typeof(TrgovinaContext))]
-    [Migration("20221229190407_Auth")]
-    partial class Auth
+    [Migration("20230102004049_nova")]
+    partial class nova
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,21 @@ namespace web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("KmetOddelek", b =>
+                {
+                    b.Property<int>("KmetjeKmetID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OddelkiOddelekID")
+                        .HasColumnType("int");
+
+                    b.HasKey("KmetjeKmetID", "OddelkiOddelekID");
+
+                    b.HasIndex("OddelkiOddelekID");
+
+                    b.ToTable("KmetOddelek");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -252,17 +267,45 @@ namespace web.Migrations
                     b.Property<string>("IzdelekVrsta")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("KmetijaID")
+                    b.Property<int>("OddelekID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RokNakupa")
+                    b.Property<DateTime>("RokProizvodnje")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RokUporabe")
                         .HasColumnType("datetime2");
 
                     b.HasKey("IzdelekID");
 
-                    b.HasIndex("KmetijaID");
+                    b.HasIndex("OddelekID");
 
                     b.ToTable("Izdelek", (string)null);
+                });
+
+            modelBuilder.Entity("web.Models.Kmet", b =>
+                {
+                    b.Property<int>("KmetID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KmetID"), 1L, 1);
+
+                    b.Property<string>("Ime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OddelekID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Priimek")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Starost")
+                        .HasColumnType("int");
+
+                    b.HasKey("KmetID");
+
+                    b.ToTable("Kmetje");
                 });
 
             modelBuilder.Entity("web.Models.Kmetija", b =>
@@ -293,6 +336,66 @@ namespace web.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Kmetija", (string)null);
+                });
+
+            modelBuilder.Entity("web.Models.Oddelek", b =>
+                {
+                    b.Property<int>("OddelekID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OddelekID"), 1L, 1);
+
+                    b.Property<int>("KmetijaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OddelekIme")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VrstaIzdelkov")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OddelekID");
+
+                    b.HasIndex("KmetijaID");
+
+                    b.ToTable("Oddelki");
+                });
+
+            modelBuilder.Entity("web.Models.Zgradba", b =>
+                {
+                    b.Property<int>("ZgradbaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ZgradbaID"), 1L, 1);
+
+                    b.Property<string>("Lokacija")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OddelekID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ZgradbaID");
+
+                    b.HasIndex("OddelekID");
+
+                    b.ToTable("Zgradba", (string)null);
+                });
+
+            modelBuilder.Entity("KmetOddelek", b =>
+                {
+                    b.HasOne("web.Models.Kmet", null)
+                        .WithMany()
+                        .HasForeignKey("KmetjeKmetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("web.Models.Oddelek", null)
+                        .WithMany()
+                        .HasForeignKey("OddelkiOddelekID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -348,11 +451,13 @@ namespace web.Migrations
 
             modelBuilder.Entity("web.Models.Izdelek", b =>
                 {
-                    b.HasOne("web.Models.Kmetija", "Kmetija")
+                    b.HasOne("web.Models.Oddelek", "Oddelek")
                         .WithMany("Izdelki")
-                        .HasForeignKey("KmetijaID");
+                        .HasForeignKey("OddelekID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Kmetija");
+                    b.Navigation("Oddelek");
                 });
 
             modelBuilder.Entity("web.Models.Kmetija", b =>
@@ -364,9 +469,36 @@ namespace web.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("web.Models.Oddelek", b =>
+                {
+                    b.HasOne("web.Models.Kmetija", null)
+                        .WithMany("Oddelki")
+                        .HasForeignKey("KmetijaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("web.Models.Zgradba", b =>
+                {
+                    b.HasOne("web.Models.Oddelek", "Oddelek")
+                        .WithMany("Zgradbe")
+                        .HasForeignKey("OddelekID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Oddelek");
+                });
+
             modelBuilder.Entity("web.Models.Kmetija", b =>
                 {
+                    b.Navigation("Oddelki");
+                });
+
+            modelBuilder.Entity("web.Models.Oddelek", b =>
+                {
                     b.Navigation("Izdelki");
+
+                    b.Navigation("Zgradbe");
                 });
 #pragma warning restore 612, 618
         }

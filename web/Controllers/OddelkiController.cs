@@ -11,75 +11,70 @@ using web.Models;
 
 namespace web.Controllers
 {
-    public class KmetijeController : Controller
+    //[Authorize]
+    public class OddelkiController : Controller
     {
         private readonly TrgovinaContext _context;
 
-        public KmetijeController(TrgovinaContext context)
+        public OddelkiController(TrgovinaContext context)
         {
             _context = context;
         }
 
-        // GET: Kmetije
+        // GET: Oddelki
         public async Task<IActionResult> Index()
         {
-              return _context.Kmetije != null ? 
-                          View(await _context.Kmetije.ToListAsync()) :
-                          Problem("Entity set 'TrgovinaContext.Kmetije'  is null.");
+              return _context.Oddelki != null ? 
+                          View(await _context.Oddelki.ToListAsync()) :
+                          Problem("Entity set 'TrgovinaContext.Oddelki'  is null.");
         }
-    
 
-
-        // GET: Kmetije/Details/5
+        // GET: Oddelki/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Kmetije == null)
+            if (id == null || _context.Oddelki == null)
             {
                 return NotFound();
             }
 
-            //var kmetija = await _context.Kmetije
-            //    .FirstOrDefaultAsync(m => m.ID == id);
-            var kmetija = await _context.Kmetije
-                .Include(s => s.Oddelki)
-                    .ThenInclude(e => e.Izdelki)
+            //var oddelek = await _context.Oddelki
+            //    .FirstOrDefaultAsync(m => m.OddelekID == id);
+            var oddelek = await _context.Oddelki
+                .Include(s => s.Izdelki)
+                    
                 .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.OddelekID == id);
 
-
-            if (kmetija == null)
+            if (oddelek == null)
             {
                 return NotFound();
             }
 
-            return View(kmetija);
+            return View(oddelek);
         }
 
-        // GET: Kmetije/Create
-        [Authorize]
+        // GET: Oddelki/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Kmetije/Create
+        // POST: Oddelki/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Create([Bind("Lastnik,Lokacija,DateCreated,DateEdited")] Kmetija kmetija)
+        public async Task<IActionResult> Create([Bind("OddelekID,OddelekIme,VrstaIzdelkov,KmetijaID")] Oddelek oddelek)
         {
             try
             {
-                    if (ModelState.IsValid)
-                {
-                    _context.Add(kmetija);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
+            if (ModelState.IsValid)
+            {
+                _context.Add(oddelek);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-
+            }
             catch (DbUpdateException /* ex */)
             {
                 //Log the error (uncomment ex variable name and write a log.
@@ -87,36 +82,34 @@ namespace web.Controllers
                 "Try again, and if the problem persists " +
                 "see your system administrator.");
             }
-            
-            return View(kmetija);
+
+            return View(oddelek);
         }
 
-        // GET: Kmetije/Edit/5
-        [Authorize]
+        // GET: Oddelki/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Kmetije == null)
+            if (id == null || _context.Oddelki == null)
             {
                 return NotFound();
             }
 
-            var kmetija = await _context.Kmetije.FindAsync(id);
-            if (kmetija == null)
+            var oddelek = await _context.Oddelki.FindAsync(id);
+            if (oddelek == null)
             {
                 return NotFound();
             }
-            return View(kmetija);
+            return View(oddelek);
         }
 
-        // POST: Kmetije/Edit/5
+        // POST: Oddelki/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Lastnik,Lokacija,DateCreated,DateEdited")] Kmetija kmetija)
+        public async Task<IActionResult> Edit(int id, [Bind("OddelekID,OddelekIme,VrstaIzdelkov,KmetijaID")] Oddelek oddelek)
         {
-            if (id != kmetija.ID)
+            if (id != oddelek.OddelekID)
             {
                 return NotFound();
             }
@@ -125,12 +118,12 @@ namespace web.Controllers
             {
                 try
                 {
-                    _context.Update(kmetija);
+                    _context.Update(oddelek);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!KmetijaExists(kmetija.ID))
+                    if (!OddelekExists(oddelek.OddelekID))
                     {
                         return NotFound();
                     }
@@ -141,51 +134,49 @@ namespace web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(kmetija);
+            return View(oddelek);
         }
 
-        // GET: Kmetije/Delete/5
-        [Authorize]
+        // GET: Oddelki/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Kmetije == null)
+            if (id == null || _context.Oddelki == null)
             {
                 return NotFound();
             }
 
-            var kmetija = await _context.Kmetije
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (kmetija == null)
+            var oddelek = await _context.Oddelki
+                .FirstOrDefaultAsync(m => m.OddelekID == id);
+            if (oddelek == null)
             {
                 return NotFound();
             }
 
-            return View(kmetija);
+            return View(oddelek);
         }
 
-        // POST: Kmetije/Delete/5
+        // POST: Oddelki/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Kmetije == null)
+            if (_context.Oddelki == null)
             {
-                return Problem("Entity set 'TrgovinaContext.Kmetije'  is null.");
+                return Problem("Entity set 'TrgovinaContext.Oddelki'  is null.");
             }
-            var kmetija = await _context.Kmetije.FindAsync(id);
-            if (kmetija != null)
+            var oddelek = await _context.Oddelki.FindAsync(id);
+            if (oddelek != null)
             {
-                _context.Kmetije.Remove(kmetija);
+                _context.Oddelki.Remove(oddelek);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool KmetijaExists(int id)
+        private bool OddelekExists(int id)
         {
-          return (_context.Kmetije?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.Oddelki?.Any(e => e.OddelekID == id)).GetValueOrDefault();
         }
     }
 }

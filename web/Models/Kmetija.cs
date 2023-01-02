@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace web.Models
 {
     public class Kmetija
     {
         public int ID { get; set; }
+        
+        [Display(Name = "Ime lastnika")]
         public string? Lastnik { get; set; }    
         public string? Lokacija { get; set; }
 
@@ -15,6 +18,6 @@ namespace web.Models
 
         public ApplicationUser? Owner { get; set; }
 
-        public ICollection<Izdelek>? Izdelki { get; set; }
+        public ICollection<Oddelek>? Oddelki { get; set; }
     }
 }
