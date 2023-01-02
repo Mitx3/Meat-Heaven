@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'MeatHeaven-is'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD5290B12A9D4C77A6AC52F246D8CB30 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3E24A2CFA11D4CFBBB70F4AC46B06ADC }}
           package: .
