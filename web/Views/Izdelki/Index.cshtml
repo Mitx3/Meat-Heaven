@@ -3,13 +3,13 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Izdelki";
 }
 
-<h1>Index</h1>
+<h1>Izdelki</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Ustvari nov izdelek</a>
 </p>
 
 <form asp-action="Index" method="get">
@@ -71,9 +71,9 @@
                 @Html.DisplayFor(modelItem => item.Oddelek.OddelekID)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IzdelekID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IzdelekID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IzdelekID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.IzdelekID">Spremeni</a> |
+                <a asp-action="Details" asp-route-id="@item.IzdelekID">Podrobnosti</a> |
+                <a asp-action="Delete" asp-route-id="@item.IzdelekID">Izbriši</a>
             </td>
         </tr>
 }

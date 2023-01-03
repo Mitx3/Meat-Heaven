@@ -1,13 +1,13 @@
 @model IEnumerable<web.Models.Oddelek>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Oddelki";
 }
 
-<h1>Index</h1>
+<h1>Oddelki</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Ustvari nov oddelek</a>
 </p>
 <table class="table">
     <thead>
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.KmetijaID)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OddelekID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OddelekID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OddelekID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.OddelekID">Spremeni</a> |
+                <a asp-action="Details" asp-route-id="@item.OddelekID">Podrobnosti</a> |
+                <a asp-action="Delete" asp-route-id="@item.OddelekID">Izbriši</a>
             </td>
         </tr>
 }
