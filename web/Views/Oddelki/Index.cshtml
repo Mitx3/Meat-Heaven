@@ -1,0 +1,53 @@
+@model IEnumerable<web.Models.Oddelek>
+
+@{
+    ViewData["Title"] = "Oddelki";
+}
+
+<h1>Oddelki</h1>
+
+<p>
+    <a asp-action="Create">Ustvari nov oddelek</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OddelekID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OddelekIme)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VrstaIzdelkov)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KmetijaID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OddelekID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OddelekIme)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VrstaIzdelkov)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KmetijaID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OddelekID">Spremeni</a> |
+                <a asp-action="Details" asp-route-id="@item.OddelekID">Podrobnosti</a> |
+                <a asp-action="Delete" asp-route-id="@item.OddelekID">Izbriši</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace web.Migrations
 {
-    public partial class Auth : Migration
+    public partial class nova : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,6 +49,22 @@ namespace web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Kmetje",
+                columns: table => new
+                {
+                    KmetID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Priimek = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Starost = table.Column<int>(type: "int", nullable: true),
+                    OddelekID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kmetje", x => x.KmetID);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,6 +196,27 @@ namespace web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Oddelki",
+                columns: table => new
+                {
+                    OddelekID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OddelekIme = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VrstaIzdelkov = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    KmetijaID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Oddelki", x => x.OddelekID);
+                    table.ForeignKey(
+                        name: "FK_Oddelki_Kmetija_KmetijaID",
+                        column: x => x.KmetijaID,
+                        principalTable: "Kmetija",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Izdelek",
                 columns: table => new
                 {
@@ -188,17 +225,63 @@ namespace web.Migrations
                     IzdelekIme = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IzdelekVrsta = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IzdelekCena = table.Column<double>(type: "float", nullable: false),
-                    RokNakupa = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    KmetijaID = table.Column<int>(type: "int", nullable: true)
+                    RokProizvodnje = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RokUporabe = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OddelekID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Izdelek", x => x.IzdelekID);
                     table.ForeignKey(
-                        name: "FK_Izdelek_Kmetija_KmetijaID",
-                        column: x => x.KmetijaID,
-                        principalTable: "Kmetija",
-                        principalColumn: "ID");
+                        name: "FK_Izdelek_Oddelki_OddelekID",
+                        column: x => x.OddelekID,
+                        principalTable: "Oddelki",
+                        principalColumn: "OddelekID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KmetOddelek",
+                columns: table => new
+                {
+                    KmetjeKmetID = table.Column<int>(type: "int", nullable: false),
+                    OddelkiOddelekID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KmetOddelek", x => new { x.KmetjeKmetID, x.OddelkiOddelekID });
+                    table.ForeignKey(
+                        name: "FK_KmetOddelek_Kmetje_KmetjeKmetID",
+                        column: x => x.KmetjeKmetID,
+                        principalTable: "Kmetje",
+                        principalColumn: "KmetID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_KmetOddelek_Oddelki_OddelkiOddelekID",
+                        column: x => x.OddelkiOddelekID,
+                        principalTable: "Oddelki",
+                        principalColumn: "OddelekID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Zgradba",
+                columns: table => new
+                {
+                    ZgradbaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Lokacija = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OddelekID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Zgradba", x => x.ZgradbaID);
+                    table.ForeignKey(
+                        name: "FK_Zgradba_Oddelki_OddelekID",
+                        column: x => x.OddelekID,
+                        principalTable: "Oddelki",
+                        principalColumn: "OddelekID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -241,14 +324,29 @@ namespace web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Izdelek_KmetijaID",
+                name: "IX_Izdelek_OddelekID",
                 table: "Izdelek",
-                column: "KmetijaID");
+                column: "OddelekID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Kmetija_OwnerId",
                 table: "Kmetija",
                 column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KmetOddelek_OddelkiOddelekID",
+                table: "KmetOddelek",
+                column: "OddelkiOddelekID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Oddelki_KmetijaID",
+                table: "Oddelki",
+                column: "KmetijaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Zgradba_OddelekID",
+                table: "Zgradba",
+                column: "OddelekID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -272,7 +370,19 @@ namespace web.Migrations
                 name: "Izdelek");
 
             migrationBuilder.DropTable(
+                name: "KmetOddelek");
+
+            migrationBuilder.DropTable(
+                name: "Zgradba");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Kmetje");
+
+            migrationBuilder.DropTable(
+                name: "Oddelki");
 
             migrationBuilder.DropTable(
                 name: "Kmetija");

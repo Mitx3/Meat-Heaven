@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using web.Data;
 using web.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace web.Controllers
 {
@@ -31,9 +31,10 @@ namespace web.Controllers
                           View(await _context.Kmetije.ToListAsync()) :
                           Problem("Entity set 'TrgovinaContext.Kmetije'  is null.");
         }
+    
+
 
         // GET: Kmetije/Details/5
-        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Kmetije == null)
@@ -41,8 +42,15 @@ namespace web.Controllers
                 return NotFound();
             }
 
+            //var kmetija = await _context.Kmetije
+            //    .FirstOrDefaultAsync(m => m.ID == id);
             var kmetija = await _context.Kmetije
+                .Include(s => s.Oddelki)
+                    .ThenInclude(e => e.Izdelki)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
+
+
             if (kmetija == null)
             {
                 return NotFound();
@@ -57,7 +65,6 @@ namespace web.Controllers
         {
             return View();
         }
-        
 
         // POST: Kmetije/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -65,20 +72,35 @@ namespace web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("ID,Lastnik,Lokacija")] Kmetija kmetija)
+        public async Task<IActionResult> Create([Bind("Lastnik,Lokacija,DateCreated,DateEdited")] Kmetija kmetija)
         {
-            var currentUser = await _usermanager.GetUserAsync(User);
 
-            if (ModelState.IsValid)
+                    var currentUser = await _usermanager.GetUserAsync(User);
+
+                    kmetija.DateCreated = DateTime.Now;
+                    kmetija.DateEdited = DateTime.Now;
+                    kmetija.Owner = currentUser;
+            try
             {
-                kmetija.DateCreated = DateTime.Now;
-                kmetija.DateEdited = DateTime.Now;
-                kmetija.Owner = currentUser;
-                
-                _context.Add(kmetija);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                    if (ModelState.IsValid)
+                {
+                    
+
+                    _context.Add(kmetija);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.
+                ModelState.AddModelError("", "Unable to save changes. " +
+                "Try again, and if the problem persists " +
+                "see your system administrator.");
+            }
+            
             return View(kmetija);
         }
 
@@ -105,7 +127,7 @@ namespace web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Lastnik,Lokacija")] Kmetija kmetija)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Lastnik,Lokacija,DateCreated,DateEdited")] Kmetija kmetija)
         {
             if (id != kmetija.ID)
             {

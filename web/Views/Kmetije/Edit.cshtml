@@ -1,10 +1,10 @@
 @model web.Models.Kmetija
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Spremeni";
 }
 
-<h1>Edit</h1>
+<h1>Spremeni</h1>
 
 <h4>Kmetija</h4>
 <hr />
@@ -24,6 +24,16 @@
                 <span asp-validation-for="Lokacija" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="DateCreated" class="control-label"></label>
+                <input asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateEdited" class="control-label"></label>
+                <input asp-for="DateEdited" class="form-control" />
+                <span asp-validation-for="DateEdited" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -31,6 +41,6 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Nazaj na seznam</a>
 </div>
 

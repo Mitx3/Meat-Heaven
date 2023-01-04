@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using web.Data;
 
@@ -11,9 +12,10 @@ using web.Data;
 namespace web.Migrations
 {
     [DbContext(typeof(TrgovinaContext))]
-    partial class TrgovinaContextModelSnapshot : ModelSnapshot
+    [Migration("20230102004049_nova")]
+    partial class nova
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,7 +258,7 @@ namespace web.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IzdelekID"), 1L, 1);
 
-                    b.Property<double?>("IzdelekCena")
+                    b.Property<double>("IzdelekCena")
                         .HasColumnType("float");
 
                     b.Property<string>("IzdelekIme")
@@ -268,10 +270,10 @@ namespace web.Migrations
                     b.Property<int>("OddelekID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("RokProizvodnje")
+                    b.Property<DateTime>("RokProizvodnje")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("RokUporabe")
+                    b.Property<DateTime>("RokUporabe")
                         .HasColumnType("datetime2");
 
                     b.HasKey("IzdelekID");

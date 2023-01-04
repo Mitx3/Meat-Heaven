@@ -5,7 +5,9 @@ using web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("TrgovinaContext");
+//var connectionString = builder.Configuration.GetConnectionString("TrgovinaContext"); Local    DB
+var connectionString = builder.Configuration.GetConnectionString("AzureContext");
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -21,6 +23,8 @@ builder.Services.AddDbContext<TrgovinaContext>(options =>
     options.UseSqlServer(connectionString));
 
 var app = builder.Build();
+
+CreateDbIfNotExists(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -47,3 +51,22 @@ app.MapControllerRoute(
 app.Run();
 
 //test
+
+static void CreateDbIfNotExists(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<TrgovinaContext>();
+                    //context.Database.EnsureCreated();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
+            }
+        }

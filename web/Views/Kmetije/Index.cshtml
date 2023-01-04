@@ -1,17 +1,20 @@
 @model IEnumerable<web.Models.Kmetija>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Kmetije";
 }
 
-<h1>Index</h1>
+<h1>Kmetije</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Zabeleži novo kmetijo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Lastnik)
             </th>
@@ -25,15 +28,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Lastnik)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Lokacija)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ID">Spremeni</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Podrobnosti</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Izbriši</a>
             </td>
         </tr>
 }

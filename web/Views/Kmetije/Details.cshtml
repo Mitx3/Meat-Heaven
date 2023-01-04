@@ -1,36 +1,87 @@
 @model web.Models.Kmetija
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Podrobnosti";
 }
 
-<h1>Details</h1>
+<h1>Podrobnosti</h1>
 
 <div>
     <h4>Kmetija</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-3">
-            @Html.DisplayNameFor(model => model.ID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ID)
-        </dd>
-        <dt class = "col-sm-3">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Lastnik)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Lastnik)
         </dd>
-        <dt class = "col-sm-3">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Lokacija)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Lokacija)
         </dd>
+
+        <dt class = "col-sm-2">
+            Upravljalec
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Owner.Email)
+        </dd>
+
+
+<!--
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+        
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateEdited)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateEdited)
+        </dd>
+-->
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Oddelki)
+        </dt>
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>ID oddelka</th>
+                    <th>Ime oddelka</th>
+                    <th>Vrsta izdelkov</th>
+                </tr>
+                @foreach (var item in Model.Oddelki)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OddelekID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OddelekIme)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VrstaIzdelkov)
+                    </td>
+            </tr>
+        }
+            </table>
+        </dd>
+
+
+        
+
+
+
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ID">Spremeni</a> |
+    <a asp-action="Index">Nazaj na seznam</a>
 </div>
