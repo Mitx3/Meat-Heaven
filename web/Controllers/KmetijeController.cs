@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,9 +16,12 @@ namespace web.Controllers
     {
         private readonly TrgovinaContext _context;
 
-        public KmetijeController(TrgovinaContext context)
+        private readonly UserManager<ApplicationUser> _usermanager;
+
+        public KmetijeController(TrgovinaContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _usermanager = userManager;
         }
 
         // GET: Kmetije
@@ -70,10 +74,19 @@ namespace web.Controllers
         [Authorize]
         public async Task<IActionResult> Create([Bind("Lastnik,Lokacija,DateCreated,DateEdited")] Kmetija kmetija)
         {
+
+                    var currentUser = await _usermanager.GetUserAsync(User);
+
+                    kmetija.DateCreated = DateTime.Now;
+                    kmetija.DateEdited = DateTime.Now;
+                    kmetija.Owner = currentUser;
             try
             {
+
                     if (ModelState.IsValid)
                 {
+                    
+
                     _context.Add(kmetija);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
