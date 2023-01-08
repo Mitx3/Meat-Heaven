@@ -10,57 +10,57 @@ using web.Models;
 
 namespace web.Controllers_Api
 {
-    [Route("api/v1/Izdelki")]
+    [Route("api/v1/Kmetije")]
     [ApiController]
-    public class IzdelkiApiContoller : ControllerBase
+    public class KmetijeApiContoller : ControllerBase
     {
         private readonly TrgovinaContext _context;
 
-        public IzdelkiApiContoller(TrgovinaContext context)
+        public KmetijeApiContoller(TrgovinaContext context)
         {
             _context = context;
         }
 
-        // GET: api/IzdelkiApiContoller
+        // GET: api/KmetijeApiContoller
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Izdelek>>> GetIzdelki()
+        public async Task<ActionResult<IEnumerable<Kmetija>>> GetKmetije()
         {
-          if (_context.Izdelki == null)
+          if (_context.Kmetije == null)
           {
               return NotFound();
           }
-            return await _context.Izdelki.ToListAsync();
+            return await _context.Kmetije.ToListAsync();
         }
 
-        // GET: api/IzdelkiApiContoller/5
+        // GET: api/KmetijeApiContoller/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Izdelek>> GetIzdelek(int id)
+        public async Task<ActionResult<Kmetija>> GetKmetija(int id)
         {
-          if (_context.Izdelki == null)
+          if (_context.Kmetije == null)
           {
               return NotFound();
           }
-            var izdelek = await _context.Izdelki.FindAsync(id);
+            var kmetija = await _context.Kmetije.FindAsync(id);
 
-            if (izdelek == null)
+            if (kmetija == null)
             {
                 return NotFound();
             }
 
-            return izdelek;
+            return kmetija;
         }
 
-        // PUT: api/IzdelkiApiContoller/5
+        // PUT: api/KmetijeApiContoller/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutIzdelek(int id, Izdelek izdelek)
+        public async Task<IActionResult> PutKmetija(int id, Kmetija kmetija)
         {
-            if (id != izdelek.IzdelekID)
+            if (id != kmetija.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(izdelek).State = EntityState.Modified;
+            _context.Entry(kmetija).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace web.Controllers_Api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!IzdelekExists(id))
+                if (!KmetijaExists(id))
                 {
                     return NotFound();
                 }
@@ -81,44 +81,44 @@ namespace web.Controllers_Api
             return NoContent();
         }
 
-        // POST: api/IzdelkiApiContoller
+        // POST: api/KmetijeApiContoller
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Izdelek>> PostIzdelek(Izdelek izdelek)
+        public async Task<ActionResult<Kmetija>> PostKmetija(Kmetija kmetija)
         {
-          if (_context.Izdelki == null)
+          if (_context.Kmetije == null)
           {
-              return Problem("Entity set 'TrgovinaContext.Izdelki'  is null.");
+              return Problem("Entity set 'TrgovinaContext.Kmetije'  is null.");
           }
-            _context.Izdelki.Add(izdelek);
+            _context.Kmetije.Add(kmetija);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetIzdelek", new { id = izdelek.IzdelekID }, izdelek);
+            return CreatedAtAction("GetKmetija", new { id = kmetija.ID }, kmetija);
         }
 
-        // DELETE: api/IzdelkiApiContoller/5
+        // DELETE: api/KmetijeApiContoller/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteIzdelek(int id)
+        public async Task<IActionResult> DeleteKmetija(int id)
         {
-            if (_context.Izdelki == null)
+            if (_context.Kmetije == null)
             {
                 return NotFound();
             }
-            var izdelek = await _context.Izdelki.FindAsync(id);
-            if (izdelek == null)
+            var kmetija = await _context.Kmetije.FindAsync(id);
+            if (kmetija == null)
             {
                 return NotFound();
             }
 
-            _context.Izdelki.Remove(izdelek);
+            _context.Kmetije.Remove(kmetija);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool IzdelekExists(int id)
+        private bool KmetijaExists(int id)
         {
-            return (_context.Izdelki?.Any(e => e.IzdelekID == id)).GetValueOrDefault();
+            return (_context.Kmetije?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }
