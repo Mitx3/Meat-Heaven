@@ -46,7 +46,7 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI(c => 
 {
-    c.SwaggerEndpoint("/api/v1/swagger.json", "My API V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
 });
 
 app.MapRazorPages();
