@@ -11,6 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("AzureContext")
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSwaggerGen();
 
 //builder.Services.AddDbContext<TrgovinaContext>(options =>
 //           options.UseSqlServer(builder.Configuration.GetConnectionString("TrgovinaContext")));
@@ -41,6 +42,12 @@ app.UseRouting();
 app.UseAuthentication();;
 
 app.UseAuthorization();
+
+app.UseSwagger();
+app.UseSwaggerUI(c => 
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
 
 app.MapRazorPages();
 
