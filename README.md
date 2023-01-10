@@ -4,6 +4,8 @@
 
 63190277 David Šeruga
 
+## Uvod
+
 ### Ideja
 V današnjih časih je postalo zelo pupolarno, da ljudje kupujejo čim več lokalno pridelane hrane. Prav tako ljudje kupujejo Slovensko rejeno meso. Nekaj take ponudbe že ima Maxi market v Ljubljani.
 
@@ -42,3 +44,22 @@ Tuji primeri:
 - Crowd Cow (crowdcow.com)
 - Grand Western Steaks (grandwesternsteaks.com)
 - ...
+
+## Sistem
+
+### Spletna aplikacija
+
+
+
+### Podatkovna baza
+
+
+
+### Spletna storitev
+
+
+
+### Odjemalec Android
+
+
+
