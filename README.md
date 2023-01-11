@@ -1,4 +1,3 @@
-- zaslonske slike
 - slika podatkovnega modela podatkovne baze z opisom
 # Meat Heaven
 
@@ -141,3 +140,18 @@ V datoteki `MainActivity.java` popravljamo funkcijo `prikaziIzdelke` ampak bolj 
 Potem pa v drugi datoteki zelo podobno stvar, kjer v funkciji `addProduct()` popravljamo razred `StringRequest`, v katere popravljamo funkcijo `getHeaders()`, ki jo popravimo na isti način, tako da dodamo ta nov parameter.
 
 In po teh majhnih popravkih, naša aplikacija pravilno deluje.
+<br>
+
+##### Slike aplikacije
+Tukaj so še zaslonske slike Android aplikacije zajete na mojem telefonu *Google Pixel 6a*.
+
+To je slika praznega glavnega zaslona.
+<img src="./img/empty_main.png" alt="empty_main" width="200"/>
+To je slika glavnega zaslona s prikazanimi izdelki.
+<img src="./img/main_with_products.png" alt="main_with_products" width="200"/>
+To je slika zaslona za dodajanje izdelkov.
+<img src="./img/adding_new_product.png" alt="adding_new_product" width="200"/>
+To je slika potrditve, da so izdelki dodani.
+<img src="./img/add_product_conformation.png" alt="add_product_conformation" width="200"/>
+In to je še slika glavnega zaslona z novimi izdelki.
+<img src="./img/main_with_new_products.png" alt="main_with_new_products" width="200"/>
