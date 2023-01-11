@@ -66,6 +66,23 @@ Center tega pod področa je bil API, ki smo ga izdelala. Za to, da sva tega razv
 Da sva ustvarila API sva zgenerirala 2 `Controller`ja tipa `API` za entiteti `Izdelki` in `Kmetije`. 
 V teh kontrolerjih sva tudi popravila njihov `route`, ki smo ga nastavila na `api/v1/[controller]`
 Dodala sva tudi dokumentacijo za najin Web API. To sva ustvarila, tako da sva dodala nov paket `Swashbuckle.AspNetCore`. In nato dodala storitev `Swashbuckle` v najin `Program.cs`. Po tem je bila najina dokumentacija API-ja dostopna na najinem naslovu z dodanim `/swagger`.
+<br>
+
+##### Avtentikacija/avtorizacija vmesnika API
+
+Naš API je v tem trenutku še ne zavarovan in vsak ki pozna našo API povezavo, lahko do teh podatkov dostopa in morda še huje. Lahko sam dodaja podatke.
+
+Zato moramo naš API zavarovati s *ključem* oz. geslom, da ko oddajamo naše zahtevke pripnemo ta ključ zraven in nam je storitev omogočena, drugače pa bi nam bila zavrnjena.
+
+Začenmo tako da ustvarimo direktorij `Filters` znotraj direktorija `web`. V tem direktoriju usvarimo nov filter, ki je datoteka z imenom `ApiKeyAuthAttribute.cs`.
+
+V tej datoteki sva ustvarila razred `ApiKeyAuthAttribute`, kjer ustvariva ime glave za *ApiKey* in jo poimenujeva kar `ApiKey`. Ta razred tudi pridobi vrednosti tega polja in ga preveri, ter vrne nov `UnauthorizedResult`, če se ključa ne ujemata.
+
+Ključ pa nastavimo v datoteki `appsettings.json` na vrednost `"ApiKey": "SecretKey"`.
+
+Seveda pa moramo to avtentikacijo tudi omogočiti znotraj samega kontrolerja, kjer API deluje. To naredimo tako, da nad razred kontrolerja dodamo vrstico `[ApiKeyAuth]`.
+
+Zdaj lahko do našega API-ja dostopajo samo tisti, ki imajo pravi ključ za dostop.
 
 
 ### Odjemalec Android
