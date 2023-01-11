@@ -84,3 +84,30 @@ Prvo uvozimo veliko različnih stvari, nato pa ustvarimo nekaj globalni spremenl
 Ustvarimo funkcijo `prikaziIzdelke()`, ki poskrbi, da ob kliku na naš gumb pridobimo podatke iz našega API-ja, ter te podatke prikažemo. Zato, da to naredimo moramo tudi popraviti funkcijo `onResponse()`, ki se nahaja v razredu `Response.Listener`, ki pa ga potrebujemo, da lahko ustvarimo objekt `jsonArrayListner`, ki ga potrebuje razred `JsonArrayRequest`, da lahko naredi poizvedbo.
 
 Po vsem tem, nam aplikacija prikazuje izelke, ki jih pridobi preko API-ja, ki smo ga naredili.
+<br>
+
+##### Android POST
+
+V tem delu moramo omogočiti dodajanje izdelkov v našo bazo preko API-ja, ki je spisan. Da bomo to naredili rabimo dodati en gumb na naš osnovi ekran, ki nas bo odpeljal na nov ekran v aplikaciji in tam ustvariti en form, ki pa bo poskrbel, da lahko dodamo ta izdelek.
+
+Na ekran dodamo nov gumb in ga ustrezno popravimo, nato pa moramo v datoteko `MainActivity.java` dodati tudi funkcijo `addProduct()`, ki pa nas bo odpeljala na naš nov ekran.
+
+Da pa nas lahko odpelje tja, moramo tudi ustvariti ta naš nov ekran. Ko ga ustvarimo dodamo vanj elemente, ki skupaj sestavijo nek form.
+Dodamo 5 polj za urejanje besedila, gumb in eno polje za prikaz besedila.
+Teh 5 polj za urejanje pričakujejo podatke kot so:
+- Ime produkta,
+- Vrsta produkta,
+- Cena produkta,
+- Datum proizvoda in
+- Rok uporabe
+
+Zdaj pa je potrebno ta form sprogramirati, da bo lahko pošiljal podatke preko našega API-ja na server
+
+V datoteko `AddProduct.java` spet uvozimo veliko različnihi stvari, ki jih potrebujemo.
+V našem razredu `AddProduct` pa imamo samo dve funkciji. To sta `onCreate()`, s katero poskrbimo za vse elemente ter `addProduct()`, ki pa je glavna funkcija pri tej operaciji. Pokliče se, ko na ekranu kliknemo gum *Poslji*.
+
+V tej funkciji prvo pridobimo vse vrednosti iz naših tekstovnih polj in naknadno še zgeneriramo dodatne vrednosti, ki pa jih potrebujemo za shranjevanje v bazo. Vse te vrednosti shranimo v objekt `jsonBody`.
+
+Ta naš objekt na koncu pretvorimo v `String` in ga uporabi razred `StringRequest` iz katerega zgeneriramo objekt `stringRequest`, ki pa ga dodamo v `requestQueue`, kjer se izvede.
+
+Tako lahko dodajamo izelke na naš server preko API-ja.
