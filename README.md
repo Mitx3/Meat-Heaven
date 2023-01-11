@@ -145,13 +145,16 @@ In po teh majhnih popravkih, naša aplikacija pravilno deluje.
 ##### Slike aplikacije
 Tukaj so še zaslonske slike Android aplikacije zajete na mojem telefonu *Google Pixel 6a*.
 
-To je slika praznega glavnega zaslona.
+To je slika praznega glavnega zaslona in glavnega zaslona s prikazanimi izdelki.
+
 <img src="./img/empty_main.png" alt="empty_main" width="200"/>
-To je slika glavnega zaslona s prikazanimi izdelki.
 <img src="./img/main_with_products.png" alt="main_with_products" width="200"/>
-To je slika zaslona za dodajanje izdelkov.
+
+To je slika zaslona za dodajanje izdelkov in potrditve da si izdelki dodani.
+
 <img src="./img/adding_new_product.png" alt="adding_new_product" width="200"/>
-To je slika potrditve, da so izdelki dodani.
 <img src="./img/add_product_conformation.png" alt="add_product_conformation" width="200"/>
+
 In to je še slika glavnega zaslona z novimi izdelki.
+
 <img src="./img/main_with_new_products.png" alt="main_with_new_products" width="200"/>
