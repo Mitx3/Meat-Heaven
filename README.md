@@ -1,3 +1,5 @@
+- zaslonske slike
+- slika podatkovnega modela podatkovne baze z opisom
 # Meat Heaven
 
 63210312 Mitjan Stepančič
@@ -47,15 +49,15 @@ Tuji primeri:
 
 ## Sistem
 
-### Spletna aplikacija
+### Spletna aplikacija (Mitjan)
 
 
 
-### Podatkovna baza
+### Podatkovna baza (Mitjan)
 
 
 
-### Spletna storitev
+### Spletna storitev (David)
 
 ##### API
 
@@ -85,7 +87,7 @@ Seveda pa moramo to avtentikacijo tudi omogočiti znotraj samega kontrolerja, kj
 Zdaj lahko do našega API-ja dostopajo samo tisti, ki imajo pravi ključ za dostop.
 
 
-### Odjemalec Android
+### Odjemalec Android (David)
 
 ##### Android GET
 
@@ -128,3 +130,14 @@ V tej funkciji prvo pridobimo vse vrednosti iz naših tekstovnih polj in naknadn
 Ta naš objekt na koncu pretvorimo v `String` in ga uporabi razred `StringRequest` iz katerega zgeneriramo objekt `stringRequest`, ki pa ga dodamo v `requestQueue`, kjer se izvede.
 
 Tako lahko dodajamo izelke na naš server preko API-ja.
+<br>
+
+##### Avtorizirani zahtevki na API
+
+Zdaj pa potrebujemo tudi prilagoditi našo aplikacijo, da bo delovala z novo potrebno avtentikacijo na API-ju. Popraviti potrebujemo dve datoteki; `MainActivity.java` in `AddProduct.java`.
+
+V datoteki `MainActivity.java` popravljamo funkcijo `prikaziIzdelke` ampak bolj specifično. Popravljamo razred `JsonArrayRequest`, v katerem popravimo funkcijo `getHeaders()`, kjer ji rečemo, da more dodati nov parameter `ApiKey` z vrednostjo ključa, ki je `SecretKey`.
+
+Potem pa v drugi datoteki zelo podobno stvar, kjer v funkciji `addProduct()` popravljamo razred `StringRequest`, v katere popravljamo funkcijo `getHeaders()`, ki jo popravimo na isti način, tako da dodamo ta nov parameter.
+
+In po teh majhnih popravkih, naša aplikacija pravilno deluje.
