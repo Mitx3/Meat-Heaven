@@ -57,6 +57,8 @@ Tuji primeri:
 
 ### Spletna storitev
 
+##### API
+
 Najino spletno aplikacijo smo že pod oddelkom **Spletna aplikacija** objavila v oblak *Microsoft Azure*. 
 
 Center tega pod področa je bil API, ki smo ga izdelala. Za to, da sva tega razvila je bilo potrebno pripraviti okolje. Na githubu sva ustvarila nov problem (*Issue*), kjer sva predlagala ustvarjanje API-ja. Ustvarila sva tudi nov branch *api*, ki je bil uporabljen za razvoj. Ta branch je bil nekaj časa tudi uporabljen kot production, zaradi testiranja določenih stvari.
@@ -68,5 +70,17 @@ Dodala sva tudi dokumentacijo za najin Web API. To sva ustvarila, tako da sva do
 
 ### Odjemalec Android
 
+##### Android GET
 
+Android aplikacijo smo izdelali v okolju *Android Studio*, ki stoji na platformi *IntelliJ IDEA*. Android aplikacijo pa sva razvijala v programskem jeziku *Java*.
 
+Aplikaciji smo prvo omogočili dostop do interneta, tako da smo ji dodali `android.permission.INTERNET`.
+Uvozili smo tudi knjižnico *volley*
+
+V tej točki smo na ekran začeli dodajati elemente. Dodala sva dva elementa. En gumb in eno tekstovno polje. Ta elementa smo pravilno poravnali in sedaj sledi programiranje njihovih funkcionalnosti. Te bomo dodali v datoteki `MainActivity.java`.
+
+Prvo uvozimo veliko različnih stvari, nato pa ustvarimo nekaj globalni spremenljivk, ki se nanašajo na elemente, povezave in na poizvedbe.
+
+Ustvarimo funkcijo `prikaziIzdelke()`, ki poskrbi, da ob kliku na naš gumb pridobimo podatke iz našega API-ja, ter te podatke prikažemo. Zato, da to naredimo moramo tudi popraviti funkcijo `onResponse()`, ki se nahaja v razredu `Response.Listener`, ki pa ga potrebujemo, da lahko ustvarimo objekt `jsonArrayListner`, ki ga potrebuje razred `JsonArrayRequest`, da lahko naredi poizvedbo.
+
+Po vsem tem, nam aplikacija prikazuje izelke, ki jih pridobi preko API-ja, ki smo ga naredili.
