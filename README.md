@@ -147,13 +147,11 @@ Tukaj so še zaslonske slike Android aplikacije zajete na mojem telefonu *Google
 
 To je slika praznega glavnega zaslona in glavnega zaslona s prikazanimi izdelki.
 
-<img src="./img/empty_main.png" alt="empty_main" width="200"/>
-<img src="./img/main_with_products.png" alt="main_with_products" width="200"/>
+<img src="./img/empty_main.png" alt="empty_main" width="200"/><img src="./img/main_with_products.png" alt="main_with_products" width="200"/>
 
 To je slika zaslona za dodajanje izdelkov in potrditve da si izdelki dodani.
 
-<img src="./img/adding_new_product.png" alt="adding_new_product" width="200"/>
-<img src="./img/add_product_conformation.png" alt="add_product_conformation" width="200"/>
+<img src="./img/adding_new_product.png" alt="adding_new_product" width="200"/><img src="./img/add_product_conformation.png" alt="add_product_conformation" width="200"/>
 
 In to je še slika glavnega zaslona z novimi izdelki.
 
