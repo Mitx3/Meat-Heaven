@@ -103,7 +103,7 @@ Da objaviva aplikacijo v oblak slediva parim korakom.
 
 
 ### Podatkovna baza (Mitjan)
-Podatkovna baza je sestavljena iz petih tabel, ki hranijo podatke, katere lahko vnesejo prijavljeni uporabniki, kot tudi tabal iz knjižnice AspNetCore.Identity.
+Podatkovna baza je sestavljena iz petih tabel, ki hranijo podatke, katere lahko vnesejo prijavljeni uporabniki, kot tudi tabel iz knjižnice AspNetCore.Identity.
 
 <img src="./img/database.png" alt="database"/>
 
