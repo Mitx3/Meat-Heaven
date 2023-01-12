@@ -88,6 +88,9 @@ Od tu naprej morava našo apliacijo dopolniti še tako da:
 - Dodava tri različne vloge v tabelo `AspNetRoles`,
 - Omejiva dostop do operacij v `CourseController.cs` in
 - Za vnos podatkov o uporabniku vlogah in povezavi med uporabnikom ter vlogo dopolniva `DbInitializer.cs`
+
+<img src="./img/web_welcome_screen.png" alt="web_welcome_screen"/>
+<img src="./img/web_product_screen.png" alt="web_product_screen"/>
 <br>
 
 #### Objava apliacije v oblaku, Azure
