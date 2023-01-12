@@ -49,7 +49,7 @@ Tuji primeri:
 
 ### Spletna aplikacija (Mitjan)
 
-##### Spletna aplikacija
+#### Spletna aplikacija
 
 Da začneva izdelovati našo spletno aplikacijo prvo potrebujeva nekaj programske opreme. Potrebujeva:
 - Docker Desktop in
@@ -90,7 +90,7 @@ Od tu naprej morava našo apliacijo dopolniti še tako da:
 - Za vnos podatkov o uporabniku vlogah in povezavi med uporabnikom ter vlogo dopolniva `DbInitializer.cs`
 <br>
 
-##### Objava apliacije v oblaku, Azure
+#### Objava apliacije v oblaku, Azure
 Da objaviva aplikacijo v oblak slediva parim korakom.
 1. Ustvariva SQL server in podatkovno bazo na strežniku.
 2. Konfigurirava požarni zid na strežniku SQL, da omogoča dostop iz razvojnega okolja.
@@ -105,7 +105,7 @@ Da objaviva aplikacijo v oblak slediva parim korakom.
 
 ### Spletna storitev (David)
 
-##### API
+#### API
 
 Najino spletno aplikacijo smo že pod oddelkom **Spletna aplikacija** objavila v oblak *Microsoft Azure*. 
 
@@ -116,7 +116,7 @@ V teh kontrolerjih sva tudi popravila njihov `route`, ki smo ga nastavila na `ap
 Dodala sva tudi dokumentacijo za najin Web API. To sva ustvarila, tako da sva dodala nov paket `Swashbuckle.AspNetCore`. In nato dodala storitev `Swashbuckle` v najin `Program.cs`. Po tem je bila najina dokumentacija API-ja dostopna na najinem naslovu z dodanim `/swagger`.
 <br>
 
-##### Avtentikacija/avtorizacija vmesnika API
+#### Avtentikacija/avtorizacija vmesnika API
 
 Naš API je v tem trenutku še ne zavarovan in vsak ki pozna našo API povezavo, lahko do teh podatkov dostopa in morda še huje. Lahko sam dodaja podatke.
 
@@ -135,7 +135,7 @@ Zdaj lahko do našega API-ja dostopajo samo tisti, ki imajo pravi ključ za dost
 
 ### Odjemalec Android (David)
 
-##### Android GET
+#### Android GET
 
 Android aplikacijo smo izdelali v okolju *Android Studio*, ki stoji na platformi *IntelliJ IDEA*. Android aplikacijo pa sva razvijala v programskem jeziku *Java*.
 
@@ -151,7 +151,7 @@ Ustvarimo funkcijo `prikaziIzdelke()`, ki poskrbi, da ob kliku na naš gumb prid
 Po vsem tem, nam aplikacija prikazuje izelke, ki jih pridobi preko API-ja, ki smo ga naredili.
 <br>
 
-##### Android POST
+#### Android POST
 
 V tem delu moramo omogočiti dodajanje izdelkov v našo bazo preko API-ja, ki je spisan. Da bomo to naredili rabimo dodati en gumb na naš osnovi ekran, ki nas bo odpeljal na nov ekran v aplikaciji in tam ustvariti en form, ki pa bo poskrbel, da lahko dodamo ta izdelek.
 
@@ -178,7 +178,7 @@ Ta naš objekt na koncu pretvorimo v `String` in ga uporabi razred `StringReques
 Tako lahko dodajamo izelke na naš server preko API-ja.
 <br>
 
-##### Avtorizirani zahtevki na API
+#### Avtorizirani zahtevki na API
 
 Zdaj pa potrebujemo tudi prilagoditi našo aplikacijo, da bo delovala z novo potrebno avtentikacijo na API-ju. Popraviti potrebujemo dve datoteki; `MainActivity.java` in `AddProduct.java`.
 
@@ -189,7 +189,7 @@ Potem pa v drugi datoteki zelo podobno stvar, kjer v funkciji `addProduct()` pop
 In po teh majhnih popravkih, naša aplikacija pravilno deluje.
 <br>
 
-##### Slike aplikacije
+#### Slike aplikacije
 Tukaj so še zaslonske slike Android aplikacije zajete na mojem telefonu *Google Pixel 6a*.
 
 To je slika praznega glavnega zaslona in glavnega zaslona s prikazanimi izdelki.
