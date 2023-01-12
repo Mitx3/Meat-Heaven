@@ -50,6 +50,48 @@ Tuji primeri:
 
 ### Spletna aplikacija (Mitjan)
 
+##### Spletna aplikacija
+
+Da začneva izdelovati našo spletno aplikacijo prvo potrebujeva nekaj programske opreme. Potrebujeva:
+- Docker Desktop in
+- Microsoft SQL Server 2019
+
+Ko imava te stvari lahko nadaljujeva tako, da nekatere stvari zaženeva in namestiva.
+- Zaženeva MS SQL Server docker container
+- Zaženeva Azure SQL Edge
+- Namestiva dotnet-ef
+- Namestiva dotnet-aspnet-codegenerator
+- Dodava package reference v `.csproj`
+- Ustvariva connection string na podatkovno bazo
+- Generirava MVC
+- Migrirava in posodobiva podatkovno bazo
+
+Sedaj morava razširiti najino obstoječo MVC aplikacijo. Tukaj dodava knjižnici `Microsoft.AspNetCore.Identity.EntityFrameworkCore` in `Microsoft.AspNetCore.Identity.UI`.
+
+Zdaj ko imava knjižnici dodani, lahko ti uporabiva, da v najinem direktoriju `Models` ustvariva novo datoteko z imenom `ApplicationUser.cs`, ki bo dedovala razred `IdentityUser` iz knjižnjic, ki sva jih prej uvozila.
+Posodobiva tudi datoteko `SchoolContext.cs`, tako da tudi ta uporablja najine nove knjižnice.
+
+Zdaj pa ustvariva migracije in jih izvedeva na bazo. Potem pa še zaženeva generator kode za Identity.
+
+Ko sva to naredila morava popraviti naš `Program.cs` tako da:
+- Uvoziva `web.Models`,
+- Nastaviva `connectionString`,
+- Odstraniva stari `.addDbContext`,
+- Prilagodiva `RequireConfirmedAccount`,
+- Prilagodiva `.AddRoles<IdentityRole>()` in
+- Dodava `app.MaprazorPages()`
+
+Dodati morava tudi avtorizacijo na določene metode, ki se nahajajo v datotekah `IzdelkiController.cs` in `KmetijeController.cs`.
+V `Kmetija.cs` popraviva razred, tako da ga razširiva z lastnostmi: `Owner`, `DateCreated`, `DateEdited`.
+
+Od tu naprej morava našo apliacijo dopolniti še tako da:
+- Posodobiva podatkovno bazo,
+- Dodava tri različne vloge v tabelo `AspNetRoles`,
+- Omejiva dostop do operacij v `CourseController.cs` in
+- Za vnos podatkov o uporabniku vlogah in povezavi med uporabnikom ter vlogo dopolniva `DbInitializer.cs`
+<br>
+
+
 
 
 ### Podatkovna baza (Mitjan)
