@@ -91,7 +91,13 @@ Od tu naprej morava našo apliacijo dopolniti še tako da:
 - Za vnos podatkov o uporabniku vlogah in povezavi med uporabnikom ter vlogo dopolniva `DbInitializer.cs`
 <br>
 
-
+##### Objava apliacije v oblaku, Azure
+Da objaviva aplikacijo v oblak slediva parim korakom.
+1. Ustvariva SQL server in podatkovno bazo na strežniku.
+2. Konfigurirava požarni zid na strežniku SQL, da omogoča dostop iz razvojnega okolja.
+3. Ustrezno urediva povezavo do podatkovne baze.
+4. Objaviva produkcijsko spletno aplikacijo preko lokalnega git repozitorija.
+5. Objaviva razvojno spletno aplikacijo preko GitHub repozitorija.
 
 
 ### Podatkovna baza (Mitjan)
