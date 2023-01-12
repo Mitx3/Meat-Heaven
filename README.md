@@ -1,4 +1,3 @@
-- slika podatkovnega modela podatkovne baze z opisom
 # Meat Heaven
 
 63210312 Mitjan Stepančič
@@ -101,7 +100,7 @@ Da objaviva aplikacijo v oblak slediva parim korakom.
 
 
 ### Podatkovna baza (Mitjan)
-
+<img src="./img/database.png" alt="database"/>
 
 
 ### Spletna storitev (David)
